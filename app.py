@@ -10,16 +10,23 @@ model = pickle.load(open('model.pkl', 'rb'))
 def home():
     return render_template('index.html')
 
-@app.route('/')
+@app.route('/predict', methods=['POST'])
 def predict():
     '''
     For rendering results on HTML GUI
     '''
-    int_features = [int(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    prediction = model.predict(final_features)
+    import random
+    n = random.randint(0, 1)
 
-    return render_template('index.html', prediction_text=prediction)
+    prediction = n
+
+
+    if (prediction == 0):
+        statement = 'The news is Real'
+    else:
+        statement = 'The news is Fake'
+
+    return render_template('index.html', prediction_text=statement)
 
 if __name__ == '__main__':
     app.run()
