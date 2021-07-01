@@ -1,6 +1,7 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
+import time
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
@@ -25,6 +26,8 @@ def predict():
         statement = 'The news is Real'
     else:
         statement = 'The news is Fake'
+        
+    time.sleep(5)
 
     return render_template('index.html', prediction_text=statement)
 
